@@ -1,5 +1,3 @@
----
-
 🦞 OpenClaw on Android (Termux + Ubuntu)
 
 Полностью локальная установка OpenClaw в Android через Termux и Ubuntu (proot-distro).
