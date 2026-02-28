@@ -69,7 +69,11 @@ OpenClaw Gateway starting...
 Server listening on http://127.0.0.1:18789
 
 ---
+🔄 Команда для коннекта Телеграм бота с OpenClaw:
 
+openclaw pairing approve telegram (тут ваш код)
+
+---
 🔁 Фоновый режим (tmux)
 
 Установка:
