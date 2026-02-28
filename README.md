@@ -10,7 +10,7 @@
 📦 Шаг 1 — Установка Termux
 
 1. Установите F-Droid:
-https://f-droid.org/
+https://f-droid.org/en/packages/com.termux/
 
 3. В F-Droid найдите Termux и установите его.
 
