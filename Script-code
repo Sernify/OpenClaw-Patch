@@ -1,0 +1,84 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+# ============================================
+# OpenClaw Installation Script for Android
+# Безопасная установка без внешних зависимостей
+# ============================================
+
+echo "🔧 Начинаем установку OpenClaw на Android..."
+echo ""
+
+# ШАГ 1: Обновление Termux
+echo "📦 Шаг 1/6: Обновление Termux..."
+pkg update -y && pkg upgrade -y
+
+# ШАГ 2: Установка proot-distro для Ubuntu-окружения
+echo "📦 Шаг 2/6: Установка proot-distro..."
+pkg install proot-distro -y
+
+# ШАГ 3: Установка Ubuntu
+echo "📦 Шаг 3/6: Установка Ubuntu (это займёт 2-3 минуты)..."
+proot-distro install ubuntu
+
+# ШАГ 4: Создание скрипта для Ubuntu-окружения
+echo "📦 Шаг 4/6: Создание скрипта установки в Ubuntu..."
+cat > /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu/root/setup_openclaw.sh << 'UBUNTU_SCRIPT'
+#!/bin/bash
+
+echo "🐧 Настройка Ubuntu-окружения..."
+
+# Обновление системы
+apt update && apt upgrade -y
+
+# Установка базовых зависимостей
+apt install curl git build-essential -y
+
+# Установка Node.js 22
+echo "📥 Установка Node.js 22..."
+curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+apt install -y nodejs
+
+# Проверка установки
+echo "✅ Node.js версия: $(node --version)"
+echo "✅ NPM версия: $(npm --version)"
+
+# Установка OpenClaw
+echo "🦞 Установка OpenClaw..."
+npm install -g openclaw@latest
+
+# КРИТИЧЕСКИЙ ФИКС: Обход блокировки Android (Bionic Bypass)
+# Android блокирует os.networkInterfaces() → вызывает System Error 13
+# Создаём "перехватчик", который подменяет эту функцию
+echo "🔧 Применение Bionic Bypass..."
+cat > /root/hijack.js << 'HIJACK'
+const os = require('os');
+os.networkInterfaces = () => ({});
+HIJACK
+
+# Делаем перехватчик постоянным
+echo 'export NODE_OPTIONS="-r /root/hijack.js"' >> ~/.bashrc
+source ~/.bashrc
+
+echo ""
+echo "✅ Установка завершена!"
+echo ""
+echo "📝 Следующие шаги:"
+echo "1. Запустите: openclaw onboard"
+echo "2. При выборе Gateway Bind выберите: 127.0.0.1 (Loopback)"
+echo "3. Введите API ключ Gemini"
+echo "4. Настройте Telegram/WhatsApp (опционально)"
+echo ""
+
+UBUNTU_SCRIPT
+
+chmod +x /data/data/com.termux/files/usr/var/lib/proot-distro/installed-rootfs/ubuntu/root/setup_openclaw.sh
+
+echo "📦 Шаг 5/6: Запуск установки в Ubuntu..."
+proot-distro login ubuntu -- /root/setup_openclaw.sh
+
+echo ""
+echo "✅ Установка завершена!"
+echo ""
+echo "📝 Для входа в Ubuntu и запуска OpenClaw используйте:"
+echo "   proot-distro login ubuntu"
+echo ""
