@@ -14,9 +14,6 @@ https://f-droid.org/
 
 3. В F-Droid найдите Termux и установите его.
 
-4. Откройте Termux и выполните:
-termux-setup-storage
-
 ---
 
 ⚙️ Шаг 2 — Создание установочного скрипта
