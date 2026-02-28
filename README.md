@@ -1,21 +1,9 @@
-# OpenClaw-Patch
-A patch that allows you to install the agent on your smartphone 
-
-Вот готовый вариант README.md для GitHub.
-Без упоминаний конкретных устройств и SSH. Можно копировать целиком.
-
-
----
-
 🦞 OpenClaw on Android (Termux + Ubuntu)
 
 Полностью локальная установка OpenClaw в Android через Termux и Ubuntu (proot-distro).
 
 > ⚠️ Важно: НЕ устанавливайте Termux из Google Play (версия устарела).
 Используйте F-Droid.
-
-
-
 
 ---
 
@@ -24,16 +12,10 @@ A patch that allows you to install the agent on your smartphone
 1. Установите F-Droid:
 https://f-droid.org/
 
+3. В F-Droid найдите Termux и установите его.
 
-2. В F-Droid найдите Termux и установите его.
-
-
-3. Откройте Termux и выполните:
-
-
-
+4. Откройте Termux и выполните:
 termux-setup-storage
-
 
 ---
 
@@ -107,7 +89,6 @@ echo "proot-distro login ubuntu"
 
 chmod +x ~/install_openclaw.sh
 
-
 ---
 
 🚀 Шаг 3 — Запуск установки
@@ -115,7 +96,6 @@ chmod +x ~/install_openclaw.sh
 ~/install_openclaw.sh
 
 ⏱ Примерное время: 5–7 минут.
-
 
 ---
 
@@ -140,8 +120,6 @@ AI Provider: Gemini
 Получите API ключ:
 https://aistudio.google.com/app/api-keys
 
-
-
 ---
 
 ▶️ Запуск агента
@@ -152,11 +130,6 @@ openclaw gateway --verbose
 
 OpenClaw Gateway starting...
 Server listening on http://127.0.0.1:18789
-
-Откройте в браузере:
-
-http://127.0.0.1:18789
-
 
 ---
 
@@ -179,7 +152,6 @@ Ctrl+B затем D
 
 tmux attach -t openclaw
 
-
 ---
 
 🔄 Автозапуск
@@ -198,7 +170,6 @@ echo "OpenClaw запущен в фоне"
 
 chmod +x ~/start_openclaw.sh
 
-
 ---
 
 🔒 Безопасность
@@ -208,7 +179,6 @@ chmod +x ~/start_openclaw.sh
 ✅ Все данные локальны
 
 ⚠️ Не меняйте 127.0.0.1 на 0.0.0.0
-
 
 ---
 
